@@ -2,7 +2,8 @@ from sklearn.manifold import TSNE
 import webscraping_aquadiction as wa
 import os
 import pandas as pd
-
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
 
 def importing_dataset():
     if os.path.exists("data/fish_data_aquadiction.csv"):
@@ -75,4 +76,20 @@ def tsne_dataset():
     graph_df.to_csv("data/fish_data_aquadiction_tsne.csv", index=False)
     return graph_df
 
-tsne_dataset()
+def neighbors_dataset(n_neighbors):
+    if os.path.exists(f"data/fish_data_aquadiction_neighbors{n_neighbors}.csv"):
+        return pd.read_csv(f"data/fish_data_aquadiction_neighbors{n_neighbors}.csv")
+    n_neighbors = n_neighbors + 1
+    df = tsne_dataset()
+
+    from sklearn.model_selection import train_test_split
+    knn = NearestNeighbors(n_neighbors=n_neighbors)
+    knn.fit(df[['X', 'Y', 'Z']])
+    distances, indices = knn.kneighbors(df[['X', 'Y', 'Z']])
+
+    indices = np.delete(indices, 0, axis=1)
+    for column_index in range(indices.shape[1]):
+        value = [df["Common Name"][x] for x in indices[:, column_index]]
+        df[f"Nearest Neighbors {column_index+1}"] = value
+    df.to_csv(f"data/fish_data_aquadiction_neighbors{n_neighbors-1}.csv", index=False)
+    return df

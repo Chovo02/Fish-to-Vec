@@ -1,30 +1,14 @@
 L'idea di Fish to Vec è quella di creare un modello simile a Word to Vec ma al posto di usare le parole e il contesto vengo usati i pesci e alcuni valori per poi visualizzarli come su https://projector.tensorflow.org/ dove ogni punto rappresenta un pesce e la distanza fra due punti quanto i due pesci si assomigliano.
 
-## Word to Vec ##
-Word to Vec è un insieme di modelli utilizzati per produrre word embedding. Il word embedding è un modo per rappresentare delle parole tramite dei vettori. Uno dei metodi più semplici è quello di creare un vettore di dimensione pari al numero di parole presenti nel dataset dove 1 corrisponde alla parola. Questo metodo è chiamato One-Hot encoding.  
-|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-|:-----|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|------:| 
-| Uomo | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 
-| Donna | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  
-| Ragazzo | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 
-| Ragazza | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 
-| Principe | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 
-| Principessa | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 
-| Regina | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 
-| Re | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 
-| Monarca | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 
+I dati li prendo da il sito https://aquadiction.world/ dove sono presenti molti dati di tanti pesci usati nel modo dell'acquariologia.
 
-Non ho scelto questo modello perchè non ti permette di considerare il contesto, nel caso di Fish to Vec i vari valori. Quindi ho optato per un modello personalizzato dove ogni valore corrisponde ad uno dei miei valori.
-|  | Femminilità | Giovane | Reale |
-|:-----|:--------:|:--------:|------:| 
-| Uomo | 0 | 0 | 0 |
-| Donna | 1 | 0 | 0 |
-| Ragazzo | 0 | 1 | 0 |
-| Ragazza | 1 | 1 | 0 | 
-| Principe | 0 | 1 | 1 | 
-| Principessa | 1 | 0 | 1 | 
-| Regina | 1 | 1 | 1 |
-| Re | 0 | 0 | 1 | 
-| Monarca | 0.5 | 0.5 | 1 | 
+Il mio dataset sarà formato da questi valori:
+|Common Name              |Link                                         |Scientific Name      |Classification|Order        |Family        |Temperament|Level          |Diet    |PH |GH  |Temp |Size|Continent|
+|-------------------------|---------------------------------------------|---------------------|--------------|-------------|--------------|-----------|---------------|--------|---|----|-----|----|---------|
+|Adolfos Catfish          |/species-spotlight/adolfos-catfish/          |Corydorasadolfoi     |Actinopterygii|Siluriformes |Callichthyidae|Peaceful   |Bottom         |Omnivore|6.0|11.0|22.5 |6.0 |SA       |
+|Adonis Tetra             |/species-spotlight/adonis-tetra/             |Lepidarchusadonis    |Actinopterygii|Characiformes|Alestidae     |Peaceful   |Middle - Top   |Omnivore|6.5|7.0 |23.9 |2.1 |AF       |
+|African Banded Barb      |/species-spotlight/african-banded-barb/      |Barbusfasciolatus    |Actinopterygii|Cypriniformes|Cyprinidae    |Peaceful   |Middle - Top   |Omnivore|6.5|8.5 |23.9 |6.0 |AF       |
+|African Butterfly Cichlid|/species-spotlight/african-butterfly-cichlid/|Anomalochromisthomasi|Actinopterygii|Cichliformes |Cichlidae     |Peaceful   |Bottom - Middle|Omnivore|6.5|7.5 |24.75|8.0 |AF       |
+|African Glass Catfish    |/species-spotlight/african-glass-catfish/    |Pareutropiusdebauwi  |Actinopterygii|Siluriformes |Schilbeidae   |Peaceful   |Bottom - Middle|Omnivore|7.0|10.0|25.3 |10.0|AF       |
 
-## PCA (Analisi delle coponenti principali)
+Quello che voglio avere è avere un insieme di valori numerici che rappresenti un pesce per poi rappresentarlo su un piano a 3 dimensioni. Dovremmo quidi dare dei valori a quelle colonne dove i valori non sono numerici (Classification, Order, ecc.) per rappresentare un pesce. Da qua risulta il problema della visualizzazione: visto che abbiamo un dataset ad alta dimensionalità non è possibile mostrarlo su un piano a 3 o a 2 dimensione. Per risolvere questo problema possiamo usa un algoritmo di riduzione di dimensionalita che viene spiegato in nella prossima sezzione insieme a come si possono creare gli embedding e altri algoritmi utilizzati. [[Algoritmi usati]]
