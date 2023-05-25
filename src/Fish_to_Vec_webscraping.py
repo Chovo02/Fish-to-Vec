@@ -7,13 +7,47 @@ from statistics import mean
 from tqdm import tqdm
 
 def get_soup(url:str) -> BeautifulSoup:
+    '''This function takes a URL as input, sends a GET request with headers to the URL, checks if the
+    response status code is 200, and returns a BeautifulSoup object with the response content.
+    
+    Parameters
+    ----------
+    url : str
+        The URL of the webpage that we want to scrape.
+    
+    Returns
+    -------
+        The function `get_soup` returns a `BeautifulSoup` object, which is created by parsing the HTML
+    content of a webpage obtained from the given URL using the `requests` library and the `lxml` parser.
+    The function also sets a user agent header in the request to avoid being blocked by the website. If
+    the response status code is not 200, a `ConnectionRefusedError`
+    
+    '''
+
     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         raise ConnectionRefusedError("Connection refused")
     return BeautifulSoup(response.content, "lxml", from_encoding=response.encoding)
 
-def country_to_continent(country:str) -> str:
+def country_to_continent(country:str) -> (str | None):
+    '''This function takes a string representing a country name, removes any unnecessary characters, maps
+    the country to its continent, and returns the continent code or None if the input is invalid.
+    
+    Parameters
+    ----------
+    country : str
+        The input parameter is a string representing a country or a list of countries separated by commas.
+    
+    Returns
+    -------
+        a string representing the continent(s) that the given country belongs to. It can return "EU" for
+    Europe, "NAM" for North America, or a string representing the continent code (e.g. "AS" for Asia) if
+    the country belongs to a single continent. If the country name is invalid or cannot be mapped to a
+    continent, the function returns None.
+    
+    '''
+
     country = country.replace("\n", "").split(",")
     
     if country[0] == "":
@@ -38,7 +72,24 @@ def country_to_continent(country:str) -> str:
             return "NAM"
     return mode(continent)
 
-def min_max_converter(min_max:str) -> str:
+def min_max_converter(min_max:str) -> (float | None):
+    '''The function takes a string input representing a range of values and returns the average of the
+    minimum and maximum values in the range, or None if the input is invalid.
+    
+    Parameters
+    ----------
+    min_max : str
+        The input parameter `min_max` is a string representing a range of values separated by the word "to"
+    or a hyphen. For example, "10 to 20" or "10-20". The function `min_max_converter` converts this
+    string into a tuple of two floats representing the
+    
+    Returns
+    -------
+        a float value rounded to two decimal places or None if the input string is empty or cannot be
+    converted to a list of floats.
+    
+    '''
+
     if min_max == "":
         return None
     min_max_result = min_max.replace(" ", "").replace("to", "-").split("-")
@@ -49,6 +100,17 @@ def min_max_converter(min_max:str) -> str:
     return round(mean(mean_list), 2)    
 
 def get_fish_data() -> pd.DataFrame:
+    '''This function scrapes data from a website about different fish species and returns a pandas
+    dataframe with information such as their common name, scientific name, classification, temperament,
+    diet, and environmental requirements.
+    
+    Returns
+    -------
+        A pandas DataFrame containing information about various fish species, including their common name,
+    scientific name, classification, order, family, temperament, level, diet, pH, GH, temperature, size,
+    and continent.
+    
+    '''
 
     df = pd.DataFrame(columns=[ "Common Name",
                                 "Link",

@@ -2,7 +2,7 @@ Per l'acquisizione dei dati prenderò i dati da https://aquadiction.world/specie
 La funzione principale di questo modulo e' `get_fish_data()` dove e' contenuta la maggior parte del codice. In questa funzione la prima cosa che viene fatta è quella di creare un DataFrame grazie a pandas.
 
 ```python
-def get_fish_data():
+def get_fish_data() -> pd.DataFrame:
 
 	df = pd.DataFrame(columns=[ "Common Name",
 								"Link",
@@ -28,7 +28,7 @@ cards = soup.find_all("div", class_="card-body")
 ```
 
 ```python
-def get_soup(url):
+def get_soup(url:str) -> BeautifulSoup:
     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
@@ -84,7 +84,7 @@ family = family.replace("\n", "").replace(" ", "").replace("\r", "").split(",")[
 Invece questi due valori sono scritti in questo modo: `valore_minimo - valore massimo` anche se a volte vengono anche `valore_minimo to valore massimo`. Per non ripetere il mio codice ho creato una funzione.
 
 ```python
-def min_max_converter(min_max):
+def min_max_converter(min_max:str) -> str:
 	if min_max == "":
 		return None
 	min_max_result = min_max.replace(" ", "").replace("to", "-").split("-")
@@ -125,7 +125,7 @@ numeric_size = ''.join(c for c in size if c.isdigit() or c == "." or c == "-")
 Ho scelto il continente al posto del paese perche' siccome un pesce puo' provenire da piu' nazione ho deciso di convertirli in continente e trovare il continente piu' frequente fra tutti.
 
 ```python
-def country_to_continent(country):
+def country_to_continent(country:str) -> str:
     country = country.replace("\n", "").split(",")
     
     if country[0] == "":

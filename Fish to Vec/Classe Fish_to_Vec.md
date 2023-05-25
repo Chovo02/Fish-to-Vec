@@ -36,14 +36,14 @@ Ho usato il decoratore `@property` per poter richiamare un getter quando proviam
 La prima funzione serve a creare il grafico usando la funzione vista in precedenza.
 
 ```python
-def plot(self, color = "Order"):
+def plot(self, color:str = "Order") -> None:
 	viz.plot(self.__neighbors, self.__dimension, color)
 ```
 
 La seconda funzione ti permette di ritornare tutte le informazioni di un determinato pesce dato il nome comune.
 
 ```python
-def search_by_common_name(self, common_name):
+def search_by_common_name(self, common_name) -> pd.DataFrame:
 	fish = self.__neighbors[self.__neighbors["Common Name"] == common_name]
 	if fish.empty:
 		raise ValueError(f"Il pesce {common_name} non esiste.")
@@ -53,7 +53,7 @@ def search_by_common_name(self, common_name):
 La terza funzione ti permette di creare un file `.csv` dove ogni riga corrisponde alla riga di ogni DataFrame dato sempre il nome comune di un pesce.
 
 ```python
-def difference_dataset_by_name(self, common_name):
+def difference_dataset_by_name(self, common_name) -> None:
 	idx = self.search_by_common_name(common_name).index[0]
 	return_df = pd.DataFrame()
 	for df in [self.__dataset, self.__embedding, self.__normalized, self.__TSNE,

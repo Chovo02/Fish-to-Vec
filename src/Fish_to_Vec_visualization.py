@@ -2,8 +2,23 @@ import plotly.express as px
 import pandas as pd
 
 def plot(df:pd.DataFrame, dimension:int = 3, color:str = "Order") -> None:
+    '''The function plots a scatter plot of a pandas DataFrame with either 2 or 3 dimensions, with the
+    option to color the points based on a specified column.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        a pandas DataFrame containing the data to be plotted
+    dimension : int, optional
+        The dimension of the plot, which can be either 2 or 3.
+    color : str, optional
+        The parameter "color" is used to specify which column of the DataFrame should be used to color the
+    points in the plot.
+    
+    '''
     if dimension != 2 and dimension != 3:
         raise ValueError("Le dimensioni possono essere 2 o 3")
+    
     
     if dimension == 3:
         fig = px.scatter_3d(df, x='X', y='Y', z='Z', color=color, hover_name="Common Name", category_orders={color: sorted(df[color].unique())},
