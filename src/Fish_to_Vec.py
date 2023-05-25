@@ -24,6 +24,9 @@ class Fish_to_Vec:
         function to find the nearest neighbors of each point in the dataset.
         
         '''
+        if dimension != 2 and dimension != 3:
+            raise ValueError("Le dimensioni possono essere 2 o 3")
+
         self.__check_local = check_local
         self.__dimension = dimension
         self.__n_neighbors = n_neighbors
@@ -89,7 +92,7 @@ class Fish_to_Vec:
         the dataset.
         
         '''
-        viz.plot(self.__neighbors, self.__dimension, color)
+        viz.plot(self.__neighbors, self.__dimension, color, self.__n_neighbors)
 
     def search_by_common_name(self, common_name) -> pd.DataFrame:
         '''This function searches for a fish by its common name in a pandas DataFrame and returns the
