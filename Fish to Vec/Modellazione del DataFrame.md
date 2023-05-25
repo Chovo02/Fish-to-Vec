@@ -69,7 +69,7 @@ def normalized_dataset(df:pd.DataFrame, check_local:bool = True) -> pd.DataFrame
 ##### Riduzione di dimesionalita' del DataFrame
 Per poter visualizzare i nostri pesci dobbiamo ridurre le dimensioni da 11 dimensioni a 3 o 2. Il metodo piu' veloce e comune e' quello della PCA spiegato nelle sezioni differenti, ma una caratteristica della PCA e' quella di essere lineare e come possiamo vedere nell'immagine sotto i nostri valori snon hanno una grossa correlazione non e' possibile usarla.
 
-![[Correlation_Matrix.png]]
+![Correlation_Matrix](img/Correlation_matrix.png)
 
 Quindi possiamo usare la T-distributed Stochastic Neighbor Embedding (T-SNE) che e' un algoritmo di ridusione delle dimensionalita' non lineare.
 

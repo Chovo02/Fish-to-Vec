@@ -34,6 +34,6 @@ if dimension == 3:
 
 In questo caso sto creando uno scatter plot a 3 dimensioni. `hover_data` e' un attributo che corrisponde alle informazioni che vengono visualizzano se si passa sopra ad un punto del grafico.
 
-![[Hover Data.png]]
+![Hover_Data](Hover_Data.png)
 
 Per rendere tutto piu' compatto e dover importare meno moduli possibili ho creato una classe che racchiude tutti i moduli precedenti. [[Classe Fish_to_Vec]]

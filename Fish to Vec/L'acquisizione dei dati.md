@@ -48,7 +48,7 @@ Facendo così prendiamo le tre tabelle che ci interessano che sono 3:
 - La tabella dei parametri dell'acqua;
 - E la tabella delle temperature dell'acqua.
 
-![[Tabella Info.png]]
+![Tabella Info](img/Tabella_Info.png)
 
 Visto che che a volte le informazioni risultano mancanti estrarremo le informazioni in un            
 `try except AttributeError:`  e nel caso ci fosse un errore `AttributeError` saltiamo il pesce, questo perchè ci sarebbe un informazione nulla che non possiamo riempire

@@ -37,7 +37,7 @@ Nel mio caso ho scelto la tecnica T-SNE che spiegherò la motivazione nella sezi
 ## T-SNE (T-distributed Stochastic Neighbor Embedding)
 L'obiettivo principale di T-SNE è quello di preservare le relazioni di similarità tra i dati originali durante la proiezione in uno spazio di dimensioni inferiori. La tecnica si basa su due concetti chiave: la misura di similarità tra coppie di punti e la distribuzione delle probabilità di punti nello spazio originale e nello spazio ridotto.
 
-![[T-SNE.png]]
+![T-SNE](img/T-SNE.png)
 
 ##### Unsupervised Nearest Neighbors
 L'algoritmo Unsupervised Nearest Neighbors (NN) è un metodo di apprendimento non supervisionato utilizzato per la ricerca di vicinato in un insieme di dati. L'obiettivo principale dell'algoritmo Unsupervised NN è quello di individuare i punti di dati simili o vicini in base alla loro somiglianza strutturale. Questo viene fatto calcolando la distanza tra i punti di dati utilizzando una metrica appropriata, come la distanza euclidea o la distanza di Manhattan.
