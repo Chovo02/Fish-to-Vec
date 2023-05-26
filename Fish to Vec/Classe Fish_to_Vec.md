@@ -12,6 +12,13 @@ Nella creazione dell'oggetto vengono creati dei attributi privati che rappresent
 
 ```python
 def __init__(self, check_local = True, dimension = 3, n_neighbors = 5) -> None:
+	
+	if dimension != 2 and dimension != 3:
+		raise ValueError("Le dimensioni possono essere 2 o 3")
+		
+	if not os.path.exists("data"):
+		os.mkdir("data")
+            
 	self.__check_local = check_local
 	self.__dimension = dimension
 	self.__n_neighbors = n_neighbors
@@ -54,12 +61,16 @@ La terza funzione ti permette di creare un file `.csv` dove ogni riga corrispond
 
 ```python
 def difference_dataset_by_name(self, common_name) -> None:
+
+	if not os.path.exists("data/fish"):
+		os.mkdir("data/fish")
+		
 	idx = self.search_by_common_name(common_name).index[0]
 	return_df = pd.DataFrame()
 	for df in [self.__dataset, self.__embedding, self.__normalized, self.__TSNE,
 			   self.__neighbors]:
 		return_df = pd.concat([return_df, df.iloc[[idx]]], )
-	return_df.to_csv(f"data/fishs/{common_name}.csv", index=False)
+	return_df.to_csv(f"data/fish/{common_name}.csv", index=False)
 ```
 
 Ho usato la funzione vista prima per avere l'indice del pesce. L'indice e' lo stesso per tutti i DataFrame perché si basano sullo stesso.

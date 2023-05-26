@@ -1,7 +1,7 @@
 Il modulo per la modellazione serve per importare il DataFrame usato prima e fare alcune operazioni per renderlo utilizzabile per una rappresentazione su uno scatter plot a tre o duo dimensioni.
 
 ##### Importazione del DataFrame
-La prima funzione importa il DataFrame dalla funsione `get_fish_data()` vista prima.
+La prima funzione importa il DataFrame dalla funzione `get_fish_data()` vista prima.
 
 ```python
 def importing_dataset(check_local:bool = True) -> pd.DataFrame:
@@ -13,10 +13,10 @@ def importing_dataset(check_local:bool = True) -> pd.DataFrame:
     return pd.read_csv("data/Fish_to_Vec.csv")
 ```
 
-Come si vede per prima cosa controlliamo se e' presente una versione locale del DataFrame in formato  `.csv` se presente leggiamo direttamete quella al posto di crealrla ogni volta oprerazione questo varra' applicata per tutti i DataFrame che vedremo successivamente per velocizzare il programma.
+Come si vede per prima cosa controlliamo se e' presente una versione locale del DataFrame in formato  `.csv` se presente leggiamo direttamente quella al posto di crearla ogni volta operazione questo varra' applicata per tutti i DataFrame che vedremo successivamente per velocizzare il programma.
 
 ##### Embedding del DataFrame
-Come detto nella sezione sugli algoritmi usati ([[Algoritmi usati]]) gli embedding servono per rappresentare un qualcosa come una parola che un computer che non capoisce in qualcosa che capisce molto meglio: numeri. 
+Come detto nella sezione sugli algoritmi usati ([[Algoritmi usati]]) gli embedding servono per rappresentare un qualcosa come una parola che un computer che non capisce in qualcosa che capisce molto meglio: numeri. 
 
 ```python
 def embedding_dataset(df:pd.DataFrame, check_local:bool=True) -> pd.DataFrame:
@@ -53,7 +53,7 @@ for i, continent in enumerate(["NAM", "SA", "EU", "AF", "AS", "OC"]):
 In fine creiamo il file in formato `.csv` e ritorniamo il DataFrame.
 
 ##### Normalizzazione del DataFrame
-Quando abbiamo un DataFrame con colonne che sono distribuite con scale e unita' di misure diverse potrebbe influenzare la comparibilita' dei valori. La normalizzazione si effettua trasformando i valori in un range comune, solitamente tra 0 e 1 o -1 e 1. Uno dei modi piu' sempilici e quello della normalizzazione per la media.
+Quando abbiamo un DataFrame con colonne che sono distribuite con scale e unita' di misure diverse potrebbe influenzare la comparabilità dei valori. La normalizzazione si effettua trasformando i valori in un range comune, solitamente tra 0 e 1 o -1 e 1. Uno dei modi piu' semplice e quello della normalizzazione per la media.
 
 ```python
 def normalized_dataset(df:pd.DataFrame, check_local:bool = True) -> pd.DataFrame:
@@ -66,12 +66,12 @@ def normalized_dataset(df:pd.DataFrame, check_local:bool = True) -> pd.DataFrame
 		return normalizer_dataset
 ```
 
-##### Riduzione di dimesionalita' del DataFrame
-Per poter visualizzare i nostri pesci dobbiamo ridurre le dimensioni da 11 dimensioni a 3 o 2. Il metodo piu' veloce e comune e' quello della PCA spiegato nelle sezioni differenti, ma una caratteristica della PCA e' quella di essere lineare e come possiamo vedere nell'immagine sotto i nostri valori snon hanno una grossa correlazione non e' possibile usarla.
+##### Riduzione di dimensionalità del DataFrame
+Per poter visualizzare i nostri pesci dobbiamo ridurre le dimensioni da 11 dimensioni a 3 o 2. Il metodo piu' veloce e comune e' quello della PCA spiegato nelle sezioni differenti, ma una caratteristica della PCA e' quella di essere lineare e come possiamo vedere nell'immagine sotto i nostri valori sono hanno una grossa correlazione non e' possibile usarla.
 
 ![Correlation_Matrix](img/Correlation_matrix.png)
 
-Quindi possiamo usare la T-distributed Stochastic Neighbor Embedding (T-SNE) che e' un algoritmo di ridusione delle dimensionalita' non lineare.
+Quindi possiamo usare la T-distributed Stochastic Neighbor Embedding (T-SNE) che e' un algoritmo di eiduzione delle dimensionalità non lineare.
 
 ```python
 def tsne_dataset(normalized_embedding_dataset:pd.DataFrame,
@@ -96,7 +96,7 @@ def tsne_dataset(normalized_embedding_dataset:pd.DataFrame,
 	return final_dataset
 ```
 
-Per prima cosa dobbiamo creare il nostro oggetto TSNE per poi fittarlo nel nostro DataFrame. Una volta fatto cio' creiamo delle nuove nuove colonne nel DataFrame che abbiamo creato nel modulo di webscraping perche' li ci sono le informazioni complete e saranno quelle usate nel nostro grafico.
+Per prima cosa dobbiamo creare il nostro oggetto TSNE per poi filtralo nel nostro DataFrame. Una volta fatto cio' creiamo delle nuove nuove colonne nel DataFrame che abbiamo creato nel modulo di web scraping perche' li ci sono le informazioni complete e saranno quelle usate nel nostro grafico.
 
 ##### Calco dei punti piu' vicine nel DataFrame
 Come ultima informazione voglio sapere quali sono i pesci pesci piu' vicini per ogni pesce quindi useremo il Unsupervised Nearest Neighbors (NN) che e' un algoritmo di machine learning non supervisionato per calcolare i punti piu' vicini per ogni punto.
@@ -136,7 +136,7 @@ def neighbors_dataset(df, n_neighbors:int = 5,
 ```
 
 
-Un problema di questo algoritmo e' che come elemento piu' vicino calcolalcola anche il punto stesso quindi dobbiamo trovare un punto in piu' rispetto a quello che verra messo quando usiamo la funzione. La funzione `kneighnbors()` restituisce due matrici uno per le distanze e l'altra degli indici del DataFrame per avere al posto di avere il numero reovo il Nome comune nella posizione dell'indice.
+Un problema di questo algoritmo e' che come elemento piu' vicino calcola anche il punto stesso quindi dobbiamo trovare un punto in piu' rispetto a quello che verra messo quando usiamo la funzione. La funzione `kneighnbors()` restituisce due matrici uno per le distanze e l'altra degli indici del DataFrame per avere al posto di avere il numero ricevo il Nome comune nella posizione dell'indice.
 
-Adesso che ho un le coodinate di ogni pesce possiamo passare alla parte di visualizzazione.
+Adesso che ho un le coordinate di ogni pesce possiamo passare alla parte di visualizzazione.
 [[Visualizzazione del DataFrame]]

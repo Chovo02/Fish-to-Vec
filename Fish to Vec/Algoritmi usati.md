@@ -12,7 +12,7 @@ Word to Vec è un insieme di modelli utilizzati per produrre word embedding. Il 
 | Re | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 
 | Monarca | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 
 
-Non ho scelto questo modello perchè non ti permette di considerare il contesto, nel caso di Fish to Vec i vari valori. Quindi ho optato per un modello personalizzato dove ogni valore corrisponde ad uno dei miei valori.
+Non ho scelto questo modello perché non ti permette di considerare il contesto, nel caso di Fish to Vec i vari valori. Quindi ho optato per un modello personalizzato dove ogni valore corrisponde ad uno dei miei valori.
 |  | Femminilità | Giovane | Reale |
 |:-----|:--------:|:--------:|------:| 
 | Uomo | 0 | 0 | 0 |
@@ -30,7 +30,6 @@ Per visualizzare i nostri embedding possiamo usare uno scatter plot dove ogni va
 ##### Tecniche di riduzione di dimensionalità
 Le tecniche di riduzione di dimensionalità servono per passare da dati con uno spazio ad alta dimesione ad uno più piccolo mantenendo la maggior parte delle informazioni. Quando si passa da una dimensione ad un altra viene definito come mapping. Esistono molte tecniche di riduzione di dimensionalità:
 - Analisi delle componenti principali (PCA): La tecnica consiste in un mapping lineare dei dati non supervisionato;
-- Linear Discriminant Anaylis (LDA):  La tecnica LDA è un mapping lineare dei dati supervisionato;
 - T-distributed Stochastic Neighbor Embedding (T-SNE): E' una tecnica non lineare e non supervisionata.
 Nel mio caso ho scelto la tecnica T-SNE che spiegherò la motivazione nella sezione di analisi del dataset.
 

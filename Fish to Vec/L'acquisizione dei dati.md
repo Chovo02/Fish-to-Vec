@@ -51,7 +51,7 @@ Facendo così prendiamo le tre tabelle che ci interessano che sono 3:
 ![Tabella Info](img/Tabella_Info.png)
 
 Visto che che a volte le informazioni risultano mancanti estrarremo le informazioni in un            
-`try except AttributeError:`  e nel caso ci fosse un errore `AttributeError` saltiamo il pesce, questo perchè ci sarebbe un informazione nulla che non possiamo riempire
+`try except AttributeError:`  e nel caso ci fosse un errore `AttributeError` saltiamo il pesce, questo perché ci sarebbe un informazione nulla che non possiamo riempire
 
 ```python
 table_fact = tables[0]
@@ -96,7 +96,7 @@ def min_max_converter(min_max:str) -> str:
 ```
 
 ##### Temperatura
-Per la temperatura seguiamo la stessa funzione di prima ma questa volta abbiamo due possibili unità di misura: celsius e fahrenheit. Quindi se il celsius non esiste lo faremo con fahrenheit facendo poi la converssione.
+Per la temperatura seguiamo la stessa funzione di prima ma questa volta abbiamo due possibili unità di misura: celsius e fahrenheit. Quindi se il celsius non esiste lo faremo con fahrenheit facendo poi la conversione.
 
 ```python
 if temp == '':
@@ -110,7 +110,7 @@ else:
 	mean_temp = min_max_converter(temp)
 ```
 
-Visto che sia il pH , GH e temperatura possono restituire None se dovesse succeedere escludiamo il pesce. 
+Visto che sia il pH , GH e temperatura possono restituire None se dovesse succedere escludiamo il pesce. 
 
 ##### Dimensione
 Per la dimesione sono andato a selezionare essendo che ci potrebbero essere dei caratteri li ho esclusi controllando tutti i caratteri della sezione dove si trova l'iformazione 
@@ -153,9 +153,9 @@ def country_to_continent(country:str) -> str:
     return mode(continent)
 ```
 
-Per fare cio' ho usato una libreria chaimata pycoutry_converter dove prima converto il paese in un codice che rappresenta il continente. Una volta fatto questo lo converto nel nome del continente.
+Per fare cio' ho usato una libreria chiamata pycoutry_converter dove prima converto il paese in un codice che rappresenta il continente. Una volta fatto questo lo converto nel nome del continente.
 
-Tutte queste informazioni quindi andranno nel mio DataFrame usando la punzione `concat()` di pandas che serve per unire due o più DataFrame insieme lungo un asse specificato in caso non sia specificato viene fatto per righe.
+Tutte queste informazioni quindi andranno nel mio DataFrame usando la funzione `concat()` di pandas che serve per unire due o più DataFrame insieme lungo un asse specificato in caso non sia specificato viene fatto per righe.
 
 ```python
 df = pd.concat([df, pd.DataFrame({"Common Name": [card.h2.text],
@@ -174,6 +174,6 @@ df = pd.concat([df, pd.DataFrame({"Common Name": [card.h2.text],
 								"Continent": [continent]})])
 ```
 
-Alla fine della funzione ritorniamo il DataFrame per poi matipolarlo ne modulo successivo.
+Alla fine della funzione ritorniamo il DataFrame per poi manipoleremo ne modulo successivo.
 
 [[Modellazione del DataFrame]]
