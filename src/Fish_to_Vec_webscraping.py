@@ -52,22 +52,20 @@ def country_to_continent(country:str) -> (str | None):
     
     if country[0] == "":
         return None
-    if "Europe" in country:
-        country.remove("Europe")
-        if len(country) == 0:
-            return "EU"
+    
     continent = []
     for c in country:
         if c[-1] == " ":
             c = c[:-1]
-        if c == "Hawaii":
-            c = "United States of America"
-        if c == "Palau Island":
-            c = "New Zealand"  
-        if c[:len(c)//2] == c[len(c)//2:]:
-            c = c[:len(c)//2]
-        country_code = pc.country_name_to_country_alpha3(c, cn_name_format="default")
-        continent.append(pc.country_alpha2_to_continent_code(pc.country_alpha3_to_country_alpha2(country_code)))
+        if c[0] == " ":
+            c = c[1:]
+        if c != "Europe":
+            try:
+                country_code = pc.country_name_to_country_alpha3(c, cn_name_format="default")
+                continent.append(pc.country_alpha2_to_continent_code(pc.country_alpha3_to_country_alpha2(country_code)))
+            except KeyError:
+                return None
+        else: continent.append("EU")
         if mode(continent) == "NA":
             return "NAM"
     return mode(continent)
@@ -196,6 +194,9 @@ def get_fish_data() -> pd.DataFrame:
             numeric_size = min_max_converter(numeric_size)
         
         continent = country_to_continent(origins)
+
+        if continent == None:
+            continue
         
         df = pd.concat([df, pd.DataFrame({"Common Name": [card.h2.text], 
                                         "Link": [link], 
