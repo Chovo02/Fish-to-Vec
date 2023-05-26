@@ -1,9 +1,9 @@
 import Fish_to_Vec_dataset_manipulation as dm
 import Fish_to_Vec_visualization as viz
 import pandas as pd
+import os
 
-# The Fish_to_Vec class is a tool for embedding and visualizing fish data using t-SNE and nearest
-# neighbors.
+
 class Fish_to_Vec:
     def __init__(self, check_local:bool = True, dimension:int = 3, n_neighbors:int = 5) -> None:
         '''This is the initialization function for a class that imports, embeds, normalizes, and performs
@@ -25,7 +25,10 @@ class Fish_to_Vec:
         
         '''
         if dimension != 2 and dimension != 3:
-            raise ValueError("Le dimensioni possono essere 2 o 3")
+            raise ValueError("Dimension can only be 2 or 3")
+        
+        if not os.path.exists("data"):
+            os.mkdir("data")
 
         self.__check_local = check_local
         self.__dimension = dimension
@@ -65,7 +68,7 @@ class Fish_to_Vec:
         
         Returns
         -------
-            The method `TSNE()` is being defined to return the private attribute `__TSNE`.
+            The method `TSNE` is being defined to return the private attribute `__TSNE`.
         
         '''
         return self.__TSNE
@@ -94,7 +97,7 @@ class Fish_to_Vec:
         '''
         viz.plot(self.__neighbors, self.__dimension, color, self.__n_neighbors)
 
-    def search_by_common_name(self, common_name) -> pd.DataFrame:
+    def search_by_common_name(self, common_name:str) -> pd.DataFrame:
         '''This function searches for a fish by its common name in a pandas DataFrame and returns the
         matching rows.
         
@@ -112,10 +115,10 @@ class Fish_to_Vec:
         '''
         fish = self.__neighbors[self.__neighbors["Common Name"] == common_name]
         if fish.empty:
-            raise ValueError(f"Il pesce {common_name} non esiste.")
+            raise ValueError(f"The fish {common_name} do not exist.")
         return fish
     
-    def difference_dataset_by_name(self, common_name) -> None:
+    def difference_dataset_by_name(self, common_name:str) -> None:
         '''This function takes a common name as input and returns a concatenated dataframe of various
         datasets related to that name, which is then saved as a CSV file.
         
@@ -125,9 +128,13 @@ class Fish_to_Vec:
             The common name of a fish species.
         
         '''
+
+        if not os.path.exists("data/fish"):
+            os.mkdir("data/fish")
+
         idx = self.search_by_common_name(common_name).index[0]
         return_df = pd.DataFrame()
         for df in [self.__dataset, self.__embedding, self.__normalized, self.__TSNE, self.__neighbors]:
             return_df = pd.concat([return_df, df.iloc[[idx]]], )
         
-        return_df.to_csv(f"data/fishs/{common_name}.csv", index=False)
+        return_df.to_csv(f"data/fish/{common_name}.csv", index=False)

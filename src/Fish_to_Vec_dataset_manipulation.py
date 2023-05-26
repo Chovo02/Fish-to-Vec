@@ -78,22 +78,26 @@ def embedding_dataset(df:pd.DataFrame, check_local:bool=True) -> pd.DataFrame:
     return df
 
 def normalized_dataset(df:pd.DataFrame, check_local:bool = True) -> pd.DataFrame:
-    """
-    This function normalizes a given pandas DataFrame and saves it to a CSV file or loads it from a
+    '''This function normalizes a given pandas DataFrame and saves it to a CSV file or loads it from a
     local file if it exists.
     
-    :param df: A pandas DataFrame containing the dataset to be normalized
-    :type df: pd.DataFrame
-    :param check_local: A boolean parameter that indicates whether to check if a local file
-    "Fish_to_Vec_Normalized.csv" exists before computing the normalized dataset. If set to True and the
-    file exists, the function will return the contents of the file instead of recomputing the normalized
-    dataset, defaults to True
-    :type check_local: bool (optional)
-    :return: a pandas DataFrame that contains the normalized dataset. If the normalized dataset has been
+    Parameters
+    ----------
+    df : pd.DataFrame
+        A pandas DataFrame containing the dataset to be normalized.
+    check_local : bool, optional
+        A boolean parameter that indicates whether to check if a local file "Fish_to_Vec_Normalized.csv"
+    exists before computing the normalized dataset. If set to True and the file exists, the function
+    will return the contents of the file instead of recomputing the normalized dataset.
+    
+    Returns
+    -------
+        a pandas DataFrame that contains the normalized dataset. If the normalized dataset has been
     previously saved in a CSV file and the `check_local` parameter is set to `True`, the function reads
-    the CSV file and returns the DataFrame. Otherwise, the function normalizes the input DataFrame `df`
-    and saves it to a CSV file before returning it.
-    """
+    the CSV file and returns the DataFrame. Otherwise, the function normalizes the input DataFrame and
+    saves it to a CSV file before returning it.
+    
+    '''
     if os.path.exists("data/Fish_to_Vec_Normalized.csv") and check_local:
         return pd.read_csv("data/Fish_to_Vec_Normalized.csv")
     else:
